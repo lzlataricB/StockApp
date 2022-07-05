@@ -7,9 +7,12 @@
 
 import UIKit
 import SnapKit
+import KeychainSwift
 
 
 class StocksViewController: UIViewController {
+    
+    let keychain = KeychainSwift()
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -32,7 +35,14 @@ class StocksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logOut))
         configureUI()
+    }
+    
+    @objc func logOut(){
+        self.keychain.set("false", forKey: "loggedIn")
+        navigationController?.popViewController(animated: true)
     }
     
     func configureUI() {
@@ -52,7 +62,6 @@ class StocksViewController: UIViewController {
             $0.width.equalToSuperview()
             $0.height.equalTo(700)
         }
-        
     }
 }
 

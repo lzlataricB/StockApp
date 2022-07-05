@@ -24,7 +24,7 @@
       "location" : "https://github.com/firebase/firebase-ios-sdk",
       "state" : {
         "branch" : "master",
-        "revision" : "0678d64cf1794ba2741c86d9a1020612f7d2dcae"
+        "revision" : "3862a56dd3735c84d746892648781f36984ff2ed"
       }
     },
     {
@@ -70,6 +70,15 @@
       "state" : {
         "revision" : "19605024d59eaefdb1f6a2cb11ebe75df4421126",
         "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "keychain-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/evgenyneu/keychain-swift",
+      "state" : {
+        "branch" : "master",
+        "revision" : "32a99b537d1c6f3529a08257c28a5feb70c0c5af"
       }
     },
     {

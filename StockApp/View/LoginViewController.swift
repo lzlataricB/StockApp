@@ -8,11 +8,13 @@
 import UIKit
 import SnapKit
 import RxSwift
+import KeychainSwift
 
 class LoginViewController: UIViewController {
     
     let bag = DisposeBag()
     let viewModel = LoginViewModel()
+    let keychain = KeychainSwift()
     
     lazy var loginImage : UIImageView = {
         let image = UIImage(named: "login")
@@ -73,9 +75,21 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        configureUI()
-        configureActionButtons()
-        setUpBindings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loggedInUser()
+    }
+    
+    func loggedInUser(){
+        if keychain.get("loggedIn") == "true"{
+            let stockVC = StocksViewController()
+            self.navigationController?.pushViewController(stockVC, animated: true)
+        } else{
+            configureUI()
+            configureActionButtons()
+            setUpBindings()
+        }
     }
     
     func setUpBindings() {
@@ -105,6 +119,7 @@ class LoginViewController: UIViewController {
             case true:
                 let stockVC = StocksViewController()
                 self.password.text = ""
+                self.keychain.set("true", forKey: "loggedIn")
                 self.navigationController?.pushViewController(stockVC, animated: true)
             case false:
                 let alertController = UIAlertController(title: "Wrong credentials", message: "Please try again", preferredStyle: .alert)
